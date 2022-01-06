@@ -1,9 +1,10 @@
-import React, { Component,useEffect,useState } from 'react';
+import React, { Component,useEffect,useState,Fragment } from 'react';
 import {ImageBackground, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Image,TouchableOpacity } from 'react-native';
 import Svg, {Circle, Ellipse, G, TSpan, TextPath, Path, Polygon, Polyline, Line, Rect, Use, Symbol, Defs, LinearGradient, RadialGradient, Stop, ClipPath, Pattern,  Mask} from 'react-native-svg';
 import { format, compareAsc } from 'date-fns'
 import randomColor from 'randomcolor'
 import NumberHolder from './no_holder.js'
+import {hymn} from "./provider";
 
 const dateToday = format(new Date(), 'EEEE, MM yyy');
 
@@ -15,6 +16,8 @@ const strokeColor = randomColor({
 });
 
 function Hymnlist(){
+    const [numberState, setNumberState] = useState(styles.hymnnoHolderEven);
+
     // const [strokeColor, setstrokeColor] = useState();
     //         useEffect(() => {
     //         const color = randomColor({
@@ -41,36 +44,26 @@ function Hymnlist(){
             </View>
         <ScrollView style={styles.hymnParentContainerM}>
             <View style={styles.hymnParentContainer}>
-            <View style={styles.hymnHolder}>
-                <Text style={styles.hymnNumber}> 01 </Text>
-                <NumberHolder gridStyle={styles.hymnnoHolderOdd}strokeColor={strokeColor} />
-            </View>
+            {
+                hymn.songs.map((song) => {
+                    // useEffect(() => {
+                    //     ( song.number & 1 ) ? setNumberState(styles.hymnnoHolderOdd) : setNumberState(styles.hymnnoHolderOdd);
+                    // })
+                
+                console.log(song.numberState)
+                    
+                    return <Fragment key={song.number}>
+                         <View style={styles.hymnHolder}>
+                            <Text style={styles.hymnNumber}> {song.number} </Text>
+                            
+                            <NumberHolder gridStyle={( song.number & 1 ) ? styles.hymnnoHolderOdd : styles.hymnnoHolderOdd}strokeColor={strokeColor} />
+                        </View>
+                        </Fragment>
+                })
+            }
+           
 
-             <View style={styles.hymnHolder}>
-                <Text style={styles.hymnNumberEven}> 02 </Text>
-                <NumberHolder gridStyle={styles.hymnnoHolderEven}strokeColor={strokeColor} />
-            </View>
-
-             <View style={styles.hymnHolder}>
-                <Text style={styles.hymnNumber}> 03 </Text>
-                <NumberHolder gridStyle={styles.hymnnoHolderOdd}strokeColor={strokeColor} />
-            </View>
-
-             <View style={styles.hymnHolder}>
-                <Text style={styles.hymnNumberEven}> 04 </Text>
-                <NumberHolder gridStyle={styles.hymnnoHolderEven}strokeColor={strokeColor} />
-            </View>
-
-             <View style={styles.hymnHolder}>
-                <Text style={styles.hymnNumber}> 03 </Text>
-                <NumberHolder gridStyle={styles.hymnnoHolderOdd}strokeColor={strokeColor} />
-            </View>
-
-              <View style={styles.hymnHolder}>
-                <Text style={styles.hymnNumberEven}> 02 </Text>
-                <NumberHolder gridStyle={styles.hymnnoHolderEven}strokeColor={strokeColor} />
-            </View>
-          
+           
 
             </View>
         </ScrollView>
