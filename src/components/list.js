@@ -2,11 +2,28 @@ import React, { Component,useEffect,useState } from 'react';
 import {ImageBackground, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Image,TouchableOpacity } from 'react-native';
 import Svg, {Circle, Ellipse, G, TSpan, TextPath, Path, Polygon, Polyline, Line, Rect, Use, Symbol, Defs, LinearGradient, RadialGradient, Stop, ClipPath, Pattern,  Mask} from 'react-native-svg';
 import { format, compareAsc } from 'date-fns'
+import randomColor from 'randomcolor'
+import NumberHolder from './no_holder.js'
 
-const dateToday = format(new Date(), 'EE, MM yyy');
+const dateToday = format(new Date(), 'EEEE, MM yyy');
 
+// console.log(color);
+// let strokeColor= "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+const strokeColor = randomColor({
+   luminosity: 'dark',
+//    hue: 'light'
+});
 
 function Hymnlist(){
+    // const [strokeColor, setstrokeColor] = useState();
+    //         useEffect(() => {
+    //         const color = randomColor({
+    //             luminosity: 'dark',
+    //             hue: 'dark'
+    //         });
+    //         setstrokeColor(color)
+
+    // })
     return(
         <View style={styles.parentContainer}>
             <View style={styles.headerContainer}>
@@ -22,11 +39,100 @@ function Hymnlist(){
                 </Svg>
 
             </View>
+        <ScrollView style={styles.hymnParentContainerM}>
+            <View style={styles.hymnParentContainer}>
+            <View style={styles.hymnHolder}>
+                <Text style={styles.hymnNumber}> 01 </Text>
+                <NumberHolder gridStyle={styles.hymnnoHolderOdd}strokeColor={strokeColor} />
+            </View>
+
+             <View style={styles.hymnHolder}>
+                <Text style={styles.hymnNumberEven}> 02 </Text>
+                <NumberHolder gridStyle={styles.hymnnoHolderEven}strokeColor={strokeColor} />
+            </View>
+
+             <View style={styles.hymnHolder}>
+                <Text style={styles.hymnNumber}> 03 </Text>
+                <NumberHolder gridStyle={styles.hymnnoHolderOdd}strokeColor={strokeColor} />
+            </View>
+
+             <View style={styles.hymnHolder}>
+                <Text style={styles.hymnNumberEven}> 04 </Text>
+                <NumberHolder gridStyle={styles.hymnnoHolderEven}strokeColor={strokeColor} />
+            </View>
+
+             <View style={styles.hymnHolder}>
+                <Text style={styles.hymnNumber}> 03 </Text>
+                <NumberHolder gridStyle={styles.hymnnoHolderOdd}strokeColor={strokeColor} />
+            </View>
+
+              <View style={styles.hymnHolder}>
+                <Text style={styles.hymnNumberEven}> 02 </Text>
+                <NumberHolder gridStyle={styles.hymnnoHolderEven}strokeColor={strokeColor} />
+            </View>
+          
+
+            </View>
+        </ScrollView>
+
+
         </View>
     )
 }
 export default Hymnlist;
 const styles = StyleSheet.create({
+    hymnHolder:{
+        width:"48%",
+        height:120,
+        alignItems: 'center',
+        justifyContent:'center',
+        // position:'relative',
+        marginBottom:20,
+        marginLeft:1,
+        marginRight:1,
+        borderWidth:2
+    },
+    hymnNumber:{
+        color:'#fff',
+        position:'absolute',
+        left:"14.5%",
+        top:"46%",
+        zIndex: 10,
+        fontSize:20,
+        fontWeight:'700'
+    },
+     hymnNumberEven:{
+        color:'#fff',
+        position:'absolute',
+        right:"10.5%",
+        top:"46%",
+        zIndex: 10,
+        fontSize:20,
+        fontWeight:'700'
+    },
+     hymnnoHolderOdd:{
+        alignSelf:'flex-start',
+        position:'absolute',
+       left:-30,
+       top:'-25%'
+    },
+     hymnnoHolderEven:{
+        alignSelf:'flex-start',
+        position:'absolute',
+       right:-25,
+       top:'-25%'
+    },
+  
+    hymnParentContainerM:{
+        
+    },
+    hymnParentContainer:{
+        flexDirection: "row",
+        width: '100%',
+        justifyContent: "space-evenly",
+        flexWrap:'wrap',
+        marginTop:42
+    },
     searchbtn:{
         alignSelf:'flex-end',
         justifyContent:'center',
