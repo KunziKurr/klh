@@ -12,19 +12,31 @@ const dateToday = format(new Date(), 'EEEE, MM yyy');
 // let strokeColor= "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
 const strokeColor = randomColor({
    luminosity: 'dark',
-//    hue: 'light'
+   hue: 'light'
 });
+const containerStyle = function(options) {
+    return {
+      strokeColor:randomColor({
+        luminosity: 'dark',
+        hue: 'random'
+     })
+    }
+  }
+// console.log(containerStyle(strokeColor))
+let rangi = containerStyle(strokeColor);
+console.log(rangi.strokeColor);
 
 function Hymnlist(){
     const [numberState, setNumberState] = useState(styles.hymnnoHolderEven);
 
-    // const [strokeColor, setstrokeColor] = useState();
-    //         useEffect(() => {
-    //         const color = randomColor({
-    //             luminosity: 'dark',
-    //             hue: 'dark'
-    //         });
-    //         setstrokeColor(color)
+    const [strokeColor, setstrokeColor] = useState();
+
+            // useEffect(() => {
+            // const color = randomColor({
+            //     luminosity: 'dark',
+            //     hue: 'dark'
+            // });
+            // setstrokeColor(color)
 
     // })
     return(
@@ -49,14 +61,21 @@ function Hymnlist(){
                     // useEffect(() => {
                     //     ( song.number & 1 ) ? setNumberState(styles.hymnnoHolderOdd) : setNumberState(styles.hymnnoHolderOdd);
                     // })
-                
-                console.log(song.numberState)
+                    let rangi = containerStyle(strokeColor);
+                    let hymnPreview = song.hymn;
+                    let hymnPreviewLimit = 30;
+                    let trimmedPreview = hymnPreview.substring(0, hymnPreviewLimit) + "..."
                     
+                
                     return <Fragment key={song.number}>
-                         <View style={styles.hymnHolder}>
+                        <View style={styles.hymnHolder}>
+                            <TouchableOpacity>
                             <Text style={styles.hymnNumber}> {song.number} </Text>
+                            <Text style={{ color: rangi.strokeColor, fontSize: 21, fontWeight: '800', textTransform: 'uppercase', top: -20 }}> {song.title} </Text>
+                            <Text style={{color:rangi.strokeColor,fontSize:21,fontWeight:'800',top:0, marginLeft:80}}> {trimmedPreview} </Text>
                             
-                            <NumberHolder gridStyle={( song.number & 1 ) ? styles.hymnnoHolderOdd : styles.hymnnoHolderOdd}strokeColor={strokeColor} />
+                                <NumberHolder gridStyle={styles.numberHolder} strokeColor={strokeColor} />
+                                </TouchableOpacity>
                         </View>
                         </Fragment>
                 })
@@ -74,6 +93,14 @@ function Hymnlist(){
 }
 export default Hymnlist;
 const styles = StyleSheet.create({
+    hymnnoHolderEven: {
+        color: 'red',
+        fontSize: 20,
+        backgroundColor:'red'
+    },
+    hymnNumberBlack: {
+        color:'#000'
+    },
     hymnHolder:{
         width:"48%",
         height:120,
@@ -83,13 +110,13 @@ const styles = StyleSheet.create({
         marginBottom:20,
         marginLeft:1,
         marginRight:1,
-        borderWidth:2
+        borderBottomWidth:1
     },
     hymnNumber:{
         color:'#fff',
         position:'absolute',
-        left:"14.5%",
-        top:"46%",
+        left:"7.5%",
+        top:"39%",
         zIndex: 10,
         fontSize:20,
         fontWeight:'700'
@@ -101,21 +128,17 @@ const styles = StyleSheet.create({
         top:"46%",
         zIndex: 10,
         fontSize:20,
-        fontWeight:'700'
+         fontWeight: '700',
+        
     },
-     hymnnoHolderOdd:{
+    numberHolder:{
         alignSelf:'flex-start',
         position:'absolute',
-       left:-30,
-       top:'-25%'
+         left: -38,
+        top:'-155%',
+         transform: [{ rotate: "180deg" }],
+         color: 'red',
     },
-     hymnnoHolderEven:{
-        alignSelf:'flex-start',
-        position:'absolute',
-       right:-25,
-       top:'-25%'
-    },
-  
     hymnParentContainerM:{
         
     },

@@ -12,14 +12,14 @@ const dateToday = format(new Date(), 'EEEE, MM yyy');
 
 function NumberHolder(props){
    // const [strokeColor, setstrokeColor] = useState();
-    //         useEffect(() => {
-    //         const color = randomColor({
-    //             luminosity: 'dark',
-    //             hue: 'dark'
-    //         });
-    //         setstrokeColor(color)
+   //          useEffect(() => {
+   //          const color = randomColor({
+   //              luminosity: 'dark',
+   //              hue: 'dark'
+   //          });
+   //          setstrokeColor(color)
 
-    // })
+   //  })
 return(
 <Svg width="150mm" height="237mm" viewBox="0 0 210 297" style={props.gridStyle}>
   <G>
